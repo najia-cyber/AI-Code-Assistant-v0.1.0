@@ -1,0 +1,121 @@
+{
+  "name": "ai-code-assistant",
+  "displayName": "AI Code Assistant",
+  "description": "A lightweight Cursor-style assistant: chat, inline AI completions, multi-file agent edits, game generator, and live preview with hot reload.",
+  "version": "0.1.0",
+  "publisher": "najia-cyber",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/najiacyber/ai-code-assistant"
+  },
+  "homepage": "https://github.com/najiacyber/ai-code-assistant#readme",
+  "bugs": {
+    "url": "https://github.com/najiacyber/ai-code-assistant/issues"
+  },
+  "keywords": [
+    "ai", "assistant", "copilot", "claude", "anthropic",
+    "code generation", "chat", "game generator", "live preview", "inline completions"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other", "Machine Learning"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aiAssistant.openChat",
+        "title": "AI Assistant: Open Chat"
+      },
+      {
+        "command": "aiAssistant.explainSelection",
+        "title": "AI Assistant: Explain Selection"
+      },
+      {
+        "command": "aiAssistant.agentEdit",
+        "title": "AI Assistant: Agent Edit (multi-file)"
+      },
+      {
+        "command": "aiAssistant.generateApp",
+        "title": "AI Assistant: Generate App From Description"
+      },
+      {
+        "command": "aiAssistant.generateGame",
+        "title": "AI Assistant: Generate Game (2D/3D Starter)"
+      },
+      {
+        "command": "aiAssistant.startLivePreview",
+        "title": "AI Assistant: Live Preview (Hot Reload)"
+      },
+      {
+        "command": "aiAssistant.stopLivePreview",
+        "title": "AI Assistant: Stop Live Preview"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aiAssistant",
+          "title": "AI Assistant",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "aiAssistant": [
+        {
+          "type": "webview",
+          "id": "aiAssistant.chatView",
+          "name": "Chat"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "aiAssistant.explainSelection",
+          "when": "editorHasSelection",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "aiAssistant.agentEdit",
+        "key": "ctrl+k ctrl+i",
+        "mac": "cmd+k cmd+i"
+      }
+    ],
+    "configuration": {
+      "title": "AI Code Assistant",
+      "properties": {
+        "aiAssistant.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your Anthropic API key (console.anthropic.com). Stored in VS Code settings."
+        },
+        "aiAssistant.model": {
+          "type": "string",
+          "default": "claude-sonnet-4-6",
+          "description": "Model id to use for chat, completions, and agent edits."
+        },
+        "aiAssistant.inlineCompletionsEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable AI-powered inline (ghost text) completions as you type."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  }
+}
